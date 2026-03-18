@@ -1,14 +1,27 @@
-from typing import List
+﻿from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
+app = FastAPI(
+    title="LLM ML Study Assistant API",
+    description="Week 1 skeleton — placeholder responses only. RAG logic added in later weeks.",
+    version="0.1.0",
+)
 
-app = FastAPI(title="LLM ML Study Assistant API")
+PLACEHOLDER_ANSWER = (
+    "This is a placeholder answer. "
+    "Real retrieval and LLM generation will be added in Week 2 and beyond."
+)
+
+PLACEHOLDER_CITATIONS = [
+    "Introduction to Machine Learning, Chapter 1, page 4",
+    "Hands-On Machine Learning with Scikit-Learn, page 12",
+]
 
 
 class QueryRequest(BaseModel):
-    question: str = Field(..., min_length=1, description="User question")
+    question: str = Field(..., min_length=1, description="The user's study question.")
 
 
 class QueryResponse(BaseModel):
@@ -31,7 +44,6 @@ def health_check() -> dict:
 def query_assistant(payload: QueryRequest) -> QueryResponse:
     return QueryResponse(
         question=payload.question,
-        answer="This is a placeholder answer. Week 2+ will add real LLM and RAG logic.",
-        citations=["placeholder_source_1"],
+        answer=PLACEHOLDER_ANSWER,
+        citations=PLACEHOLDER_CITATIONS,
     )
-
